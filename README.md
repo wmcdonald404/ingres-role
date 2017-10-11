@@ -29,30 +29,24 @@ A description of the settable variables for this role should go here, including 
 * `ingres_charset`: UTF8
 * `ingres_user_home`: "/home/{{ ingres_user_name }}"
 * `ingres_license_dir`: "{{ ingres_user_home }}"
- 
-ingres_system_directories:
+* `ingres_system_directories`:
   - "{{ ingres_system_directory }}"
   - "{{ ingres_log_file_directory }}"
   - "{{ ingres_work_directory }}"
- 
-ingres_recovery_directories:
+* `ingres_recovery_directories`:
   - "{{ ingres_checkpoint_directory }}"
   - "{{ ingres_dump_directory }}"
   - "{{ ingres_journal_directory }}"
   - "{{ ingres_dual_log_directory }}"
-
-ingres_data_directories:
+* `ingres_data_directories`:
   - "{{ ingres_database_directory }}"
-
-actian_rpm_key_url: http://192.168.122.1/
-actian_rpm_key_file: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214-key.asc
-
-actian_ingres_installer_url: http://192.168.122.1/
-actian_ingres_installer_file: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214.tgz
-actian_ingres_installer_directory: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214
-
-actian_ingres_license_url: http://192.168.122.1/
-actian_ingres_license_file: license.xml
+* `actian_rpm_key_url`: http://192.168.122.1/
+* `actian_rpm_key_file`: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214-key.asc
+* `actian_ingres_installer_url`: http://192.168.122.1/
+* `actian_ingres_installer_file`: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214.tgz
+* `actian_ingres_installer_directory`: ingres-11.0.0-100-com-linux-rpm-x86_64-UpgradePatch15214
+* `actian_ingres_license_url`: http://192.168.122.1/
+* `actian_ingres_license_file`: license.xml
 
 
 Dependencies
