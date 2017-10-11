@@ -1,0 +1,72 @@
+---
+# tasks file for ingres-role
+
+- name: include distribution-specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: include software-specific variables
+  include_vars: ingres.yml
+
+- name: create the ingres group
+  group:
+    name: "{{ ingres_group_name }}"
+    gid: "{{ ingres_group_id }}"
+
+- name: create the ingres user
+  user:
+    name: "{{ ingres_user_name }}"
+    uid: "{{ ingres_user_id }}"
+    comment: "Ingres DB System User"
+    group: "{{ ingres_group_name }}"
+
+- name: create the ingres directory tree
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ingres_user_name }}"
+    group: "{{ ingres_group_name }}"
+  with_items:
+    - "{{ ingres_system_directories }}"
+    - "{{ ingres_recovery_directories }}"
+    - "{{ ingres_data_directories }}"
+
+- name: install pre-requisite RPMs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ ingres_rpm_prerequisites }}"
+
+- name: import the Actian RPM signing key
+  rpm_key:
+    key: "{{ actian_rpm_key_url }}/{{ actian_rpm_key_file }}"
+
+# - name: get the Actian Ingres installation binaries
+#   get_url:
+#     url: "{{ actian_ingres_installer_url }}/{{ actian_ingres_installer_file }}"
+#     dest: "{{ ingres_user_home }}"
+
+- name: get the Actian Ingres license file
+  get_url:
+    url: "{{ actian_ingres_license_url }}/{{ actian_ingres_license_file }}"
+    dest: "{{ ingres_user_home }}"
+
+- name: create the silent installer from template
+  template:
+    src: installer.properties.j2
+    dest: "{{ ingres_user_home }}/installer.properties"
+
+- name: unarchive the Actian Ingress installer
+  unarchive:
+    dest: "{{ ingres_user_home }}"
+    src: "{{ actian_ingres_installer_url }}/{{ actian_ingres_installer_file }}"
+    remote_src: yes
+    creates: "{{ ingres_user_home }}/{{ actian_ingres_installer_directory }}"
+    owner: "{{ ingres_user_name }}"
+
+
+- name: install Ingres
+  command: "{{ ingres_user_home }}/{{ actian_ingres_installer_directory }}/express_install.sh -acceptlicense -respfile {{ ingres_user_home }}/installer.properties"
+
+
+# vim:ts=2:sw=2:et

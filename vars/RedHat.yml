@@ -1,0 +1,9 @@
+---
+ingres_rpm_prerequisites:
+  - unzip 
+  - libaio 
+  - perl 
+  - glibc.i686 
+  - libgcc.i686 
+  - zlib.i686 
+  - libstdc++.i686
