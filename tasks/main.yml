@@ -41,20 +41,19 @@
   rpm_key:
     key: "{{ actian_rpm_key_url }}/{{ actian_rpm_key_file }}"
 
-# - name: get the Actian Ingres installation binaries
-#   get_url:
-#     url: "{{ actian_ingres_installer_url }}/{{ actian_ingres_installer_file }}"
-#     dest: "{{ ingres_user_home }}"
-
 - name: get the Actian Ingres license file
   get_url:
     url: "{{ actian_ingres_license_url }}/{{ actian_ingres_license_file }}"
     dest: "{{ ingres_user_home }}"
+    owner: "{{ ingres_user_name }}"
+    group: "{{ ingres_group_name }}"
 
 - name: create the silent installer from template
   template:
     src: installer.properties.j2
     dest: "{{ ingres_user_home }}/installer.properties"
+    owner: "{{ ingres_user_name }}"
+    group: "{{ ingres_group_name }}"
 
 - name: unarchive the Actian Ingress installer
   unarchive:
@@ -63,6 +62,7 @@
     remote_src: yes
     creates: "{{ ingres_user_home }}/{{ actian_ingres_installer_directory }}"
     owner: "{{ ingres_user_name }}"
+    group: "{{ ingres_group_name }}"
 
 
 - name: install Ingres
