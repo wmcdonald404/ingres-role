@@ -30,7 +30,7 @@
     - "{{ ingres_recovery_directories }}"
     - "{{ ingres_data_directories }}"
 
-- name: install pre-requisite RPMs
+- name: install prerequisite RPMs
   package:
     name: "{{ item }}"
     state: present
@@ -65,8 +65,7 @@
     group: "{{ ingres_group_name }}"
 
 
-- name: install Ingres
-  command: "{{ ingres_user_home }}/{{ actian_ingres_installer_directory }}/express_install.sh -acceptlicense -respfile {{ ingres_user_home }}/installer.properties"
-
+# - name: install Ingres
+#   command: "{{ ingres_user_home }}/{{ actian_ingres_installer_directory }}/express_install.sh -acceptlicense -respfile {{ ingres_user_home }}/installer.properties"
 
 # vim:ts=2:sw=2:et
