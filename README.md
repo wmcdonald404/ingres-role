@@ -1,11 +1,10 @@
 ingres-role
 =========
-
 A simple role to install Ingres RDBMS software. Based on the manual steps documented in https://github.com/wmcdonald404/ingress-install
 
 Requirements
 ------------
-No pre-requisites at this time.
+No prerequisites at this time.
 
 Role Variables
 --------------
@@ -48,27 +47,31 @@ A description of the settable variables for this role should go here, including 
 * `actian_ingres_license_url`: http://192.168.122.1/
 * `actian_ingres_license_file`: license.xml
 
-
 Dependencies
 ------------
-
 No external dependencies at this time.
 
 Example Playbook
 ----------------
+```
+[user@control ~]$ cat plays/test.yml 
+---
+- name: test the ingres-role
+  hosts: dbservers
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+  roles:
+    - { role: ingres-role }
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+
+```
+[user@control ~]$ ansible-playbook -i inventory/hosts -u root plays/test.yml 
+```
 
 License
 -------
-
 GPL
 
 Author Information
 ------------------
-
 https://github.com/wmcdonald404
